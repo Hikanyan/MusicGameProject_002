@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- ゲームフローの管理を行うクラス
+ ゲーム全体のゲームフローの管理を行うクラス
  */
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    private SaveAndLoad _saveAndLoad;
+    private RythemGameManager _rythemGameManager;
 
     private void Awake()
     {
@@ -31,8 +33,11 @@ public class GameManager : MonoBehaviour
     {
         // ゲームの初期化処理
         // セーブデータの読み込み
+        _saveAndLoad = gameObject.AddComponent<SaveAndLoad>();
         // シーンの読み込み
-        //
+        // ゲームの状態の初期化
+        
+        
         
     }
 

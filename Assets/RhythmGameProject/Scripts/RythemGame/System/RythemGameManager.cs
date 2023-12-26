@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 
-public class RythemGameManager: MonoBehaviour
+
+/// <summary> リズムゲームの進行管理を行うクラス </summary>
+public class RythemGameManager : MonoBehaviour
 {
+    // 音楽の再生や停止を管理
+    // タイミングのチェックなど
+    
     public static RythemGameManager Instance { get; private set; }
 
     private void Awake()
@@ -9,12 +14,14 @@ public class RythemGameManager: MonoBehaviour
         Singleton();
     }
 
+
+    /// <summary> シングルトンではあるが、シーンをまたいで存在する必要がないため、DontDestroyOnLoadはしない </summary>
     private void Singleton()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -24,8 +31,5 @@ public class RythemGameManager: MonoBehaviour
 
     private void Initialize()
     {
-        
     }
-
-    
 }
