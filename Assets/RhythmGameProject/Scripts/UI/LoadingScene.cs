@@ -1,9 +1,5 @@
 ﻿// using UnityEngine.SceneManagement;
-// using UnityEngine;
-// using UnityEngine.SceneManagement;
-// using UnityEngine.UI;
-// using System;
-// using Cysharp.Threading.Tasks;
+//
 // namespace RhythmGameProject.UI
 // {
 //     public class LoadingScene
