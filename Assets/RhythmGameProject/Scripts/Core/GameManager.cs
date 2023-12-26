@@ -2,16 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ ゲームフローの管理を行うクラス
+ */
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    public static GameManager Instance => _instance;
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (_instance == null)
+        Singleton();
+    }
+
+    private void Singleton()
+    {
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -19,7 +26,16 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
+
+    private void Initialize()
+    {
+        // ゲームの初期化処理
+        // セーブデータの読み込み
+        // シーンの読み込み
+        //
+        
+    }
+
     public void ChangeScene(string sceneName)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
@@ -29,5 +45,8 @@ public class GameManager : MonoBehaviour
     {
         setActiveObject.SetActive(!setActiveObject.activeSelf);
     }
+    
+    // ゲームの状態を管理する
+    
     
 }
