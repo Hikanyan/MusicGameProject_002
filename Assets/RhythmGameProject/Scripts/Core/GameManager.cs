@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         // ゲームの初期化処理
         // セーブデータの読み込み
-        _saveAndLoad = gameObject.AddComponent<SaveAndLoad>();
+        
         // シーンの読み込み
         // ゲームの状態の初期化
         
@@ -41,9 +41,15 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void ChangeScene(string sceneName)
+    public void LoadScene(string sceneName)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+    
+    //AsyncOperationは非同期処理の結果を取得するためのクラス
+    public AsyncOperation LoadSceneAsync(string sceneName)
+    {
+        return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
     }
     
     public void SetActive(GameObject setActiveObject)

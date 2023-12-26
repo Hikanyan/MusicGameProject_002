@@ -12,7 +12,7 @@ namespace RhythmGameProject.Online
             //ログインチェック
             //if (PlayFabClientAPI.IsClientLoggedIn()) return;
             Debug.Log($"非ログイン状態のため{loginErrorSceneName}に移動します");
-            GameManager.Instance.ChangeScene(loginErrorSceneName);
+            GameManager.Instance.LoadScene(loginErrorSceneName);
         }
     }
 }

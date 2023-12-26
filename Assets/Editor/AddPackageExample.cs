@@ -16,7 +16,7 @@ namespace Hikanyan.Core
         {
             List<string> packageIds = new List<string>
         {
-            //"https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts",
+            "https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts",
             "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
         };
 
