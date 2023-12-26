@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-[ExecuteInEditMode, RequireComponent(typeof(TMP_Text))]
+[ExecuteAlways, RequireComponent(typeof(TMP_Text))]
 public class TMPAnimationWave : MonoBehaviour
 {
     //アニメーションの振幅

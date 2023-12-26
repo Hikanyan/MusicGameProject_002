@@ -1,43 +1,56 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
-using System;
 using Cysharp.Threading.Tasks;
 
 public class LoadingScene : MonoBehaviour
 {
+    [SerializeField] private GameObject loadingUI;
+    [SerializeField] private Slider slider;
+    [SerializeField] private float minimumLoadTime = 2.0f;
+
+    public static LoadingScene Instance { get; private set; }
     private AsyncOperation _async;
-    [SerializeField] private GameObject _loadingUI;
-    [SerializeField] private Slider _slider;
-
-    public static LoadingScene Instance;
-
-    public Action OnComplate;
+    private Action _onComplete;
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
     }
 
     public async UniTask LoadNextScene(string sceneName)
     {
-        _loadingUI.SetActive(true);
-        await UniTask.DelayFrame(1);
+        loadingUI.SetActive(true);
+        var startTime = Time.time;
+        var targetProgress = 0f;
+        var displayProgress = 0f;
+
         _async = GameManager.Instance.LoadSceneAsync(sceneName);
 
-        while (_async != null && !_async.isDone)
+        while (Time.time - startTime < minimumLoadTime || _async is { isDone: false })
         {
-            _slider.value = _async.progress;
+            if (_async != null)
+            {
+                targetProgress = Mathf.Clamp01(_async.progress);
+            }
+
+            // プログレスバーを滑らかに進める
+            displayProgress = Mathf.MoveTowards(displayProgress, targetProgress, Time.deltaTime / minimumLoadTime);
+            slider.value = displayProgress;
+
             await UniTask.DelayFrame(1);
         }
-        _loadingUI.SetActive(false);
-        OnComplate?.Invoke();
+
+        loadingUI.SetActive(false);
+        _onComplete?.Invoke();
     }
+
 }
