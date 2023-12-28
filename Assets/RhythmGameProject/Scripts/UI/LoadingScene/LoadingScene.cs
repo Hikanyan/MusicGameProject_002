@@ -6,12 +6,21 @@ using DG.Tweening;
 
 public class LoadingScene : MonoBehaviour
 {
-    [SerializeField] private GameObject loadingUI;
-    [SerializeField] private CanvasGroup fadeCanvasGroup;
-    
-    [SerializeField] private Slider slider;
-    [SerializeField] private float fadeDuration = 1.0f;
-    [SerializeField] private float minimumLoadTime = 2.0f;
+    [Tooltip("ロード中に表示するUI")] [SerializeField]
+    private GameObject loadingUI;
+
+    [Tooltip("フェードに使用するマテリアル")] [SerializeField]
+    private Material fadeMaterial;
+
+    [Tooltip("フェードに使用するマスクテクスチャ")] [SerializeField]
+    private Texture maskTexture;
+
+    [Tooltip("フェードの範囲")] [SerializeField, Range(0, 1)]
+    private float cutoutRange;
+
+    [Tooltip("プログレスバー")] [SerializeField] private Slider slider;
+    [Tooltip("フェード時間")] [SerializeField] private float fadeDuration = 1.0f;
+    [Tooltip("最低ロード時間")] [SerializeField] private float minimumLoadTime = 2.0f;
 
     public static LoadingScene Instance { get; private set; }
     private AsyncOperation _async;
@@ -30,6 +39,7 @@ public class LoadingScene : MonoBehaviour
         }
     }
 
+    /// <summary> 次のシーンをロードする </summary>
     public async UniTask LoadNextScene(string sceneName)
     {
         await FadeOut();
@@ -49,7 +59,8 @@ public class LoadingScene : MonoBehaviour
             }
 
             // プログレスバーを滑らかに進める
-            displayProgress = Mathf.MoveTowards(displayProgress, targetProgress, Time.deltaTime / minimumLoadTime);
+            displayProgress = Mathf.MoveTowards(
+                displayProgress, targetProgress, Time.deltaTime / minimumLoadTime);
             slider.value = displayProgress;
 
             await UniTask.DelayFrame(1);
@@ -61,15 +72,26 @@ public class LoadingScene : MonoBehaviour
         await FadeIn();
     }
 
+    /// <summary> ロード完了時に実行する処理を登録する </summary>
     private async UniTask FadeOut()
     {
-        // DOTweenアニメーションを待機する
-        await fadeCanvasGroup.DOFade(1, fadeDuration).AsyncWaitForCompletion();
+        fadeMaterial.SetTexture("_MaskTex", maskTexture);
+
+        // DOTweenを使用してRangeパラメータをアニメーション
+        DOTween.To(() => cutoutRange, x => cutoutRange = x, 1, fadeDuration)
+            .OnUpdate(() => fadeMaterial.SetFloat("_Range", 1 - cutoutRange))
+            .SetEase(Ease.Linear);
+
+        // フェードアウトが終わるまで待機する
+        await UniTask.Delay(TimeSpan.FromSeconds(fadeDuration));
     }
 
     private async UniTask FadeIn()
     {
         // DOTweenアニメーションを待機する
-        await fadeCanvasGroup.DOFade(0, fadeDuration).AsyncWaitForCompletion();
+        DOTween.To(() => cutoutRange, x => cutoutRange = x, 0, fadeDuration)
+            .OnUpdate(() => fadeMaterial.SetFloat("_Range", 1 - cutoutRange))
+            .SetEase(Ease.Linear);
+        await UniTask.Delay(TimeSpan.FromSeconds(fadeDuration));
     }
 }

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private SaveAndLoad _saveAndLoad;
-    private RythemGameManager _rythemGameManager;
+    private RhythmGameManager _rhythmGameManager;
 
     private void Awake()
     {
@@ -47,11 +47,16 @@ public class GameManager : MonoBehaviour
     }
     
     //AsyncOperationは非同期処理の結果を取得するためのクラス
+    
+    /// <summary> シーンを非同期で読み込む </summary>
+    /// <param name="sceneName">読み込むシーンの名前</param>
     public AsyncOperation LoadSceneAsync(string sceneName)
     {
         return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
     }
     
+    /// <summary> GameObjectのアクティブを切り替える </summary>
+    /// <param name="setActiveObject">アクティブを切り替えるGameObject</param> 
     public void SetActive(GameObject setActiveObject)
     {
         setActiveObject.SetActive(!setActiveObject.activeSelf);

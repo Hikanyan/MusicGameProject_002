@@ -2,12 +2,12 @@
 
 
 /// <summary> リズムゲームの進行管理を行うクラス </summary>
-public class RythemGameManager : MonoBehaviour
+public class RhythmGameManager : MonoBehaviour
 {
     // 音楽の再生や停止を管理
     // タイミングのチェックなど
     
-    public static RythemGameManager Instance { get; private set; }
+    public static RhythmGameManager Instance { get; private set; }
 
     private void Awake()
     {
