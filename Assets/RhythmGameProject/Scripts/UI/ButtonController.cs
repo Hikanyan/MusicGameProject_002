@@ -10,7 +10,7 @@ public class ButtonController : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
-        GameManager.Instance.ChangeScene(sceneName);
+        GameManager.Instance.LoadScene(sceneName);
     }
 
     public void SetActive(GameObject setActiveObject)

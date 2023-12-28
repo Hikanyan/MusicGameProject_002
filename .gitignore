@@ -72,3 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .idea/
 Assets/RhythmGameProject/Image/
+Assets/TextMesh Pro/
+Assets/RhythmGameProject/Font/
+Assets/Plugins/
