@@ -27,10 +27,10 @@ public class SceneController
         await LoadSceneAdditive(sceneName);
     }
 
-    ///<summary> シーンを非同期でロードするメソッド（AsyncOperationをUniTaskにラップ）</summary>>
-    public Task<AsyncOperation> LoadSceneAsync(string sceneName)
+    ///<summary> シーンを非同期でロードするメソッド </summary>>
+    public AsyncOperation LoadSceneAsync(string sceneName)
     {
-        return Task.FromResult(SceneManager.LoadSceneAsync(sceneName));
+        return SceneManager.LoadSceneAsync(sceneName);
     }
 
 
