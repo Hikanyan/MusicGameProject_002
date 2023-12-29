@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     private SaveAndLoad _saveAndLoad;
     private RhythmGameManager _rhythmGameManager;
+    private SceneController _sceneController;
 
     private void Awake()
     {
@@ -37,8 +38,6 @@ public class GameManager : MonoBehaviour
         // シーンの読み込み
         // ゲームの状態の初期化
         
-        
-        
     }
 
     public void LoadScene(string sceneName)
@@ -52,7 +51,7 @@ public class GameManager : MonoBehaviour
     /// <param name="sceneName">読み込むシーンの名前</param>
     public AsyncOperation LoadSceneAsync(string sceneName)
     {
-        return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+        return _sceneController.LoadSceneAsync(sceneName);
     }
     
     /// <summary> GameObjectのアクティブを切り替える </summary>
