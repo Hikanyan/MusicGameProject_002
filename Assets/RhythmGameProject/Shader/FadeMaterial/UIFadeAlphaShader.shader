@@ -4,7 +4,8 @@ Shader "HikanyanLaboratory/UIFadeAlphaShader"
     {
         [PerRendererData] _MaskTex("Mask Texture", 2D) = "white" {}
         [PerRendererData] _Color ("Tint", Color) = (1,1,1,1)
-        [PerRendererData] _Range("Range", Range (0, 1)) = 0
+        //[PerRendererData] 
+         _Range("Range", Range (0, 1)) = 0
     }
     SubShader
     {

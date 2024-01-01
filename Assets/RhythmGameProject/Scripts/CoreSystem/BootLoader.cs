@@ -1,14 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-
-/// <summary> 開始時に SequenceManager をインスタンス化して初期化します。 </summary>
-public class BootLoader : MonoBehaviour
+namespace RhythmGameProject.Scripts.CoreSystem
 {
-    [SerializeField] SequenceManager sequenceManagerPrefab;
-    private void Awake()
+    /// <summary> 開始時に SequenceManager をインスタンス化して初期化します。 </summary>
+    public class BootLoader : MonoBehaviour
     {
-        Instantiate(sequenceManagerPrefab);
-        SequenceManager.Instance.Initialize();
+        [SerializeField] SequenceManager sequenceManagerPrefab;
+        private void Awake()
+        {
+            Instantiate(sequenceManagerPrefab);
+            SequenceManager.Instance.Initialize();
+        }
     }
 }
